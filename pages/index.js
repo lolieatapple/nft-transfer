@@ -77,7 +77,7 @@ export default function Home() {
         <Button type="primary" disabled={!tokenId || !users} onClick={async ()=>{
           try {
             const sc = new wallet.web3.eth.Contract(multiSendAbi, multiSendSCAddr);
-            const _users = users.split('\n').map(v=>v.trim());
+            const _users = users.split('\n').map(v=>v.trim()).filter(v=>v.length < 40);
             console.log('_users', _users);
             const ret = await sc.methods.airdrop(scAddr, tokenId, _users).send({from: wallet.address});
             if (ret.status) {
